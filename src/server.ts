@@ -206,27 +206,33 @@ function lanUrls(): string[] {
     .map((net) => `http://${net!.address}:${PORT}`);
 }
 
-app.listen(PORT, HOST, () => {
-  console.log(`Translatinate listening on http://localhost:${PORT}`);
-  if (HOST === "0.0.0.0") {
-    for (const url of lanUrls()) console.log(`  on your phone (same Wi-Fi): ${url}`);
-  }
-  if (MOCK) {
-    console.log("MOCK_CLAUDE=1: serving the bundled sample instead of calling Claude.");
-  } else if (PROVIDER === "openrouter") {
-    console.log(`Using OpenRouter, model ${openRouterConfig.model}.`);
-    if (!process.env.OPENROUTER_API_KEY) {
-      console.warn("Warning: OPENROUTER_API_KEY is not set; requests will fail.");
+// On Vercel the platform runs the exported app itself; everywhere else
+// (your computer, Render, Railway, …) the server listens on a port.
+export default app;
+
+if (!process.env.VERCEL) {
+  app.listen(PORT, HOST, () => {
+    console.log(`Translatinate listening on http://localhost:${PORT}`);
+    if (HOST === "0.0.0.0") {
+      for (const url of lanUrls()) console.log(`  on your phone (same Wi-Fi): ${url}`);
     }
-  } else {
-    console.log(
-      `Using Claude, model ${config.model} (transcribe effort ${config.transcribeEffort}, analyze effort ${config.analyzeEffort}).`,
-    );
-    if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
-      console.warn("Warning: ANTHROPIC_API_KEY is not set; requests to Claude will fail.");
+    if (MOCK) {
+      console.log("MOCK_CLAUDE=1: serving the bundled sample instead of calling Claude.");
+    } else if (PROVIDER === "openrouter") {
+      console.log(`Using OpenRouter, model ${openRouterConfig.model}.`);
+      if (!process.env.OPENROUTER_API_KEY) {
+        console.warn("Warning: OPENROUTER_API_KEY is not set; requests will fail.");
+      }
+    } else {
+      console.log(
+        `Using Claude, model ${config.model} (transcribe effort ${config.transcribeEffort}, analyze effort ${config.analyzeEffort}).`,
+      );
+      if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
+        console.warn("Warning: ANTHROPIC_API_KEY is not set; requests to Claude will fail.");
+      }
     }
-  }
-  if (!PASSCODE) {
-    console.log("No APP_PASSCODE set: anyone who can reach this server can use it.");
-  }
-});
+    if (!PASSCODE) {
+      console.log("No APP_PASSCODE set: anyone who can reach this server can use it.");
+    }
+  });
+}

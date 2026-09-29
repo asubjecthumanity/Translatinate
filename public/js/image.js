@@ -1,8 +1,9 @@
 // Shrinks a phone photo before upload. Claude reads images up to 2576 px on
 // the long edge, and accepts at most 5 MB, so anything bigger is wasted bytes.
+// The byte cap also keeps the base64 upload under Vercel's 4.5 MB request limit.
 
 const MAX_EDGE = 2576;
-const MAX_BYTES = 3.5 * 1024 * 1024;
+const MAX_BYTES = 3 * 1024 * 1024;
 const THUMB_EDGE = 240;
 
 function loadImage(file) {
