@@ -56,6 +56,26 @@ Translatinate listening on http://localhost:3000
 Open the second address on your phone. Photo capture works over plain HTTP,
 so you don't need a certificate for this.
 
+### Using an OpenRouter key instead of Claude
+
+The app can also run on any image-reading model on
+[OpenRouter](https://openrouter.ai), with a key from
+[openrouter.ai/keys](https://openrouter.ai/keys). Put these in `.env` in place
+of the Claude key:
+
+```bash
+OPENROUTER_API_KEY=sk-or-...
+OPENROUTER_MODEL=google/gemini-2.5-flash   # optional; any model that accepts images
+```
+
+When only the OpenRouter key is set, the server uses it automatically. When
+both keys are set, Claude wins unless you add `AI_PROVIDER=openrouter`. The
+startup log says which one it's using. To find other models, filter
+[openrouter.ai/models](https://openrouter.ai/models) by image input. Models
+whose id ends in `:free` cost nothing but are rate-limited, and smaller models
+read old print and parse Latin noticeably less well. If a model returns
+malformed answers, the app says so and suggests trying another.
+
 **Try it without an API key:** tap **Try a sample passage** on the home
 screen, or start the server with `MOCK_CLAUDE=1 npm run dev`. In mock mode
 every upload returns the bundled Caesar sample, which lets you test the whole
@@ -83,7 +103,11 @@ or Chrome's ⋮ menu) and it opens full-screen like a native app.
 | `ANTHROPIC_MODEL` | `claude-opus-5-5` | Claude model used for both steps. |
 | `TRANSCRIBE_EFFORT` | `medium` | `low` … `max`: how hard Claude works on reading the page. Raise it for difficult manuscripts. |
 | `ANALYZE_EFFORT` | `medium` | Same, for the per-word analysis. `low` is faster and cheaper. |
-| `MOCK_CLAUDE` | off | `1` serves the bundled sample instead of calling Claude. |
+| `OPENROUTER_API_KEY` | (none) | Use OpenRouter instead of Claude (see above). |
+| `OPENROUTER_MODEL` | `google/gemini-2.5-flash` | OpenRouter model id; must accept images. |
+| `OPENROUTER_MAX_TOKENS` | `16000` | Output limit per OpenRouter request. |
+| `AI_PROVIDER` | automatic | `anthropic` or `openrouter`, to choose when both keys are set. |
+| `MOCK_CLAUDE` | off | `1` serves the bundled sample instead of calling any AI. |
 | `PORT` / `HOST` | `3000` / `0.0.0.0` | Where the server listens. |
 
 **Cost.** Most of the cost is Claude's output, and most of the output is the
@@ -107,7 +131,9 @@ src/
   claude.ts    The two Claude calls (streaming + structured JSON output)
   prompts.ts   System prompts for transcription and word analysis
   schemas.ts   Zod schemas for Claude's output and for request bodies
+  openrouter.ts  The same two calls through OpenRouter (optional provider)
   mock.ts      MOCK_CLAUDE=1 stand-in that serves the bundled sample
+  env.ts       Loads .env before anything reads settings
 public/
   index.html, styles.css, manifest.webmanifest, icons/
   js/app.js       Routing, photo → transcription flow, library

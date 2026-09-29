@@ -1,3 +1,4 @@
+import "./env.js";
 import { timingSafeEqual } from "node:crypto";
 import { networkInterfaces } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -6,18 +7,26 @@ import express, { type NextFunction, type Request, type Response } from "express
 import { z } from "zod";
 import { ClaudeOutputError, analyze, config, transcribe } from "./claude.js";
 import { mockAnalyze, mockTranscribe } from "./mock.js";
+import {
+  OpenRouterError,
+  analyzeOpenRouter,
+  openRouterConfig,
+  transcribeOpenRouter,
+} from "./openrouter.js";
 import { AnalyzeRequestSchema, TranscribeRequestSchema } from "./schemas.js";
-
-try {
-  process.loadEnvFile(); // .env in the working directory, if there is one
-} catch {
-  // No .env file: rely on the real environment.
-}
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || "0.0.0.0";
 const PASSCODE = process.env.APP_PASSCODE || "";
 const MOCK = process.env.MOCK_CLAUDE === "1";
+
+// Which AI service does the work. Defaults to Claude; switches to OpenRouter
+// when asked to, or when only an OpenRouter key is configured.
+const PROVIDER: "anthropic" | "openrouter" =
+  process.env.AI_PROVIDER === "openrouter" ||
+  (!process.env.AI_PROVIDER && Boolean(process.env.OPENROUTER_API_KEY) && !process.env.ANTHROPIC_API_KEY)
+    ? "openrouter"
+    : "anthropic";
 
 const app = express();
 app.disable("x-powered-by");
@@ -108,7 +117,7 @@ function openStream(res: Response) {
 }
 
 function describeError(err: unknown): string {
-  if (err instanceof ClaudeOutputError) return err.message;
+  if (err instanceof ClaudeOutputError || err instanceof OpenRouterError) return err.message;
   if (err instanceof Anthropic.AuthenticationError || err instanceof Anthropic.PermissionDeniedError) {
     return "The server's Anthropic API key was rejected. Check ANTHROPIC_API_KEY.";
   }
@@ -158,14 +167,22 @@ function streamHandler<Body>(
 app.post(
   "/api/transcribe",
   streamHandler(TranscribeRequestSchema, (body, hooks) =>
-    MOCK ? mockTranscribe(hooks) : transcribe(body, hooks),
+    MOCK
+      ? mockTranscribe(hooks)
+      : PROVIDER === "openrouter"
+        ? transcribeOpenRouter(body, hooks)
+        : transcribe(body, hooks),
   ),
 );
 
 app.post(
   "/api/analyze",
   streamHandler(AnalyzeRequestSchema, (body, hooks) =>
-    MOCK ? mockAnalyze(body, hooks) : analyze(body, hooks),
+    MOCK
+      ? mockAnalyze(body, hooks)
+      : PROVIDER === "openrouter"
+        ? analyzeOpenRouter(body, hooks)
+        : analyze(body, hooks),
   ),
 );
 
@@ -196,9 +213,14 @@ app.listen(PORT, HOST, () => {
   }
   if (MOCK) {
     console.log("MOCK_CLAUDE=1: serving the bundled sample instead of calling Claude.");
+  } else if (PROVIDER === "openrouter") {
+    console.log(`Using OpenRouter, model ${openRouterConfig.model}.`);
+    if (!process.env.OPENROUTER_API_KEY) {
+      console.warn("Warning: OPENROUTER_API_KEY is not set; requests will fail.");
+    }
   } else {
     console.log(
-      `Model ${config.model} (transcribe effort ${config.transcribeEffort}, analyze effort ${config.analyzeEffort}).`,
+      `Using Claude, model ${config.model} (transcribe effort ${config.transcribeEffort}, analyze effort ${config.analyzeEffort}).`,
     );
     if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
       console.warn("Warning: ANTHROPIC_API_KEY is not set; requests to Claude will fail.");
