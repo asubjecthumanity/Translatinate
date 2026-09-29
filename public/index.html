@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Translatinate</title>
+    <meta name="description" content="Photograph a page of Latin and read it word by word." />
+    <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16130f" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Translatinate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/js/app.js"></script>
+  </head>
+  <body>
+    <!-- Hidden inputs behind the two capture buttons. -->
+    <input id="camera-input" type="file" accept="image/*" capture="environment" hidden />
+    <input id="library-input" type="file" accept="image/*" hidden />
+
+    <!-- Home ---------------------------------------------------------------->
+    <main id="view-home" class="view" hidden>
+      <header class="home-header">
+        <img class="home-logo" src="/icons/icon.svg" alt="" width="56" height="56" />
+        <h1>Translatinate</h1>
+        <p class="tagline">Photograph a page of Latin. Tap any word to see what it means and why.</p>
+        <span id="demo-badge" class="pill" hidden>Demo mode</span>
+      </header>
+
+      <section class="capture">
+        <button id="btn-camera" class="btn btn-primary btn-large" type="button">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>
+          Take a photo
+        </button>
+        <button id="btn-library" class="btn btn-secondary btn-large" type="button">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-9 9"/></svg>
+          Choose an image
+        </button>
+        <p class="hint">
+          Fill the frame with the text, keep the page flat, and use good light.
+          <a href="#/sample" class="link">Try a sample passage</a>
+        </p>
+      </section>
+
+      <section class="library" aria-labelledby="library-heading">
+        <h2 id="library-heading">Your library</h2>
+        <p id="library-empty" class="muted">Pages you scan are saved here on this device.</p>
+        <ul id="library-list" class="library-list"></ul>
+      </section>
+    </main>
+
+    <!-- Processing ---------------------------------------------------------->
+    <main id="view-processing" class="view" hidden>
+      <div class="processing">
+        <div class="scan-frame">
+          <img id="processing-photo" alt="Your photo" />
+          <div class="scan-line" aria-hidden="true"></div>
+        </div>
+        <p id="processing-status" class="processing-status" role="status" aria-live="polite">Preparing photo…</p>
+        <div id="processing-preview" class="processing-preview" aria-hidden="true"></div>
+        <div id="processing-error" class="processing-error" hidden>
+          <p id="processing-error-text"></p>
+          <button id="btn-retry-photo" class="btn btn-primary" type="button">Try another photo</button>
+        </div>
+        <button id="btn-cancel" class="btn btn-ghost" type="button">Cancel</button>
+      </div>
+    </main>
+
+    <!-- Reader -------------------------------------------------------------->
+    <main id="view-reader" class="view" hidden>
+      <header class="topbar">
+        <a href="#/" class="icon-btn" aria-label="Back to library">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </a>
+        <h1 id="reader-title" class="topbar-title"></h1>
+        <button id="btn-photo" class="icon-btn" type="button" aria-label="Show original photo" aria-pressed="false">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-9 9"/></svg>
+        </button>
+        <button id="btn-translation" class="icon-btn" type="button" aria-label="Show translation" aria-pressed="false">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 6 8M11 5c0 4-3 7-6 8"/><path d="M13 21l4-9 4 9M14.5 18h5"/></svg>
+        </button>
+        <button id="btn-size" class="icon-btn" type="button" aria-label="Change text size">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19l5-13 5 13M4.8 14.5h6.4M14 19l3.5-9 3.5 9M15.2 16h4.6"/></svg>
+        </button>
+      </header>
+
+      <div class="reader">
+        <figure id="photo-panel" class="photo-panel" hidden>
+          <img id="reader-photo" alt="Original photo of the page" />
+          <figcaption class="muted">Tap the photo to zoom.</figcaption>
+        </figure>
+
+        <details id="about" class="about" open>
+          <summary>About this passage</summary>
+          <p id="about-source" class="about-source"></p>
+          <p id="about-text"></p>
+          <p id="about-notes" class="muted small"></p>
+        </details>
+
+        <div id="analysis-progress" class="analysis-progress" hidden>
+          <div class="bar"><div id="analysis-bar"></div></div>
+          <span id="analysis-label"></span>
+          <button id="btn-retry-failed" class="link" type="button" hidden>Retry</button>
+        </div>
+
+        <article id="latin" class="latin" lang="la"></article>
+        <p class="muted small reader-hint">Tap a word for its meaning, grammar and role in the sentence.</p>
+      </div>
+
+      <!-- Word details sheet -->
+      <section id="sheet" class="sheet" aria-label="Word details" aria-hidden="true">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <div class="sheet-head">
+          <button id="btn-prev" class="icon-btn" type="button" aria-label="Previous word">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <div class="sheet-title">
+            <div id="sheet-form" class="sheet-form" lang="la"></div>
+            <div id="sheet-lemma" class="sheet-lemma" lang="la"></div>
+          </div>
+          <button id="btn-next" class="icon-btn" type="button" aria-label="Next word">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <button id="btn-close" class="icon-btn" type="button" aria-label="Close">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div id="sheet-body" class="sheet-body"></div>
+      </section>
+    </main>
+
+    <!-- Lightbox for the original photo -->
+    <div id="lightbox" class="lightbox" hidden>
+      <button id="btn-lightbox-close" class="icon-btn lightbox-close" type="button" aria-label="Close photo">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="lightbox-scroll"><img id="lightbox-img" alt="Original photo of the page" /></div>
+    </div>
+
+    <!-- Passcode prompt -->
+    <dialog id="passcode-dialog" class="dialog">
+      <form method="dialog">
+        <h2>Passcode</h2>
+        <p class="muted">This server is protected. Enter the passcode its owner set.</p>
+        <input id="passcode-input" type="password" autocomplete="current-password" required />
+        <p id="passcode-error" class="error small" hidden>That passcode didn't work.</p>
+        <div class="dialog-actions">
+          <button value="cancel" class="btn btn-ghost" formnovalidate>Cancel</button>
+          <button value="ok" class="btn btn-primary">Continue</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>

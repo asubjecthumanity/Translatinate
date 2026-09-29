@@ -1,0 +1,293 @@
+{
+  "transcription": {
+    "readable": true,
+    "title": "De Bello Gallico 1.1",
+    "source": "Julius Caesar, Commentarii de Bello Gallico, Book 1, chapter 1",
+    "about": "Caesar's own account of his campaigns in Gaul (58–50 BC). The famous opening sets out the geography and peoples of Gaul before the war narrative begins.",
+    "notes": "Sample passage bundled with the app.",
+    "blocks": [
+      {
+        "kind": "heading",
+        "sentences": [
+          { "text": "De Bello Gallico", "translation": "On the Gallic War" }
+        ]
+      },
+      {
+        "kind": "prose",
+        "sentences": [
+          {
+            "text": "Gallia est omnis divisa in partes tres, quarum unam incolunt Belgae, aliam Aquitani, tertiam qui ipsorum lingua Celtae, nostra Galli appellantur.",
+            "translation": "Gaul as a whole is divided into three parts, one of which the Belgae inhabit, another the Aquitani, and the third those who in their own language are called Celts and in ours Gauls."
+          },
+          {
+            "text": "Hi omnes lingua, institutis, legibus inter se differunt.",
+            "translation": "All of these differ from one another in language, customs and laws."
+          }
+        ]
+      }
+    ]
+  },
+  "analyses": {
+    "0.0": {
+      "literal": "About the war Gallic.",
+      "structure": "A title: the preposition 'de' with the ablative, meaning 'on' or 'concerning'.",
+      "words": [
+        {
+          "i": 0, "form": "De", "lemma": "dē (prep. + abl.)", "pos": "preposition",
+          "parse": "indeclinable; here with the ablative", "meaning_here": "on, concerning",
+          "role": "Governs 'Bello Gallico': 'On the Gallic War'.",
+          "definitions": ["about, concerning", "down from, from", "out of, of (a group)"],
+          "links": [1], "derivatives": [],
+          "note": "Common in titles of works: 'On…', 'Concerning…'."
+        },
+        {
+          "i": 1, "form": "Bello", "lemma": "bellum, bellī, n.", "pos": "noun",
+          "parse": "ablative singular neuter", "meaning_here": "war",
+          "role": "Object of 'De'.",
+          "definitions": ["war, warfare", "battle, combat"],
+          "links": [0, 2], "derivatives": ["bellicose", "belligerent", "rebel"], "note": ""
+        },
+        {
+          "i": 2, "form": "Gallico", "lemma": "Gallicus, Gallica, Gallicum", "pos": "adjective",
+          "parse": "ablative singular neuter", "meaning_here": "Gallic",
+          "role": "Modifies 'Bello': 'the Gallic War'.",
+          "definitions": ["Gallic, of Gaul or the Gauls"],
+          "links": [1], "derivatives": ["Gallic"], "note": ""
+        }
+      ]
+    },
+    "1.0": {
+      "literal": "Gaul is all divided into parts three, of which one inhabit the Belgae, another the Aquitani, the third (those) who in their own language Celts, in ours Gauls are called.",
+      "structure": "The main clause is 'Gallia est omnis divisa in partes tres'. A relative clause introduced by 'quarum' then names the three parts, with 'incolunt' understood again in each member; the last member holds a further relative clause, 'qui … appellantur'.",
+      "words": [
+        {
+          "i": 0, "form": "Gallia", "lemma": "Gallia, Galliae, f.", "pos": "proper noun",
+          "parse": "nominative singular feminine", "meaning_here": "Gaul",
+          "role": "Subject of 'est divisa'.",
+          "definitions": ["Gaul, the land of the Gauls (roughly modern France and Belgium)"],
+          "links": [1, 2, 3], "derivatives": ["Gaul", "Gallic"],
+          "note": "Caesar means Gaul beyond the Roman province: the region he went on to conquer."
+        },
+        {
+          "i": 1, "form": "est", "lemma": "sum, esse, fuī, futūrus", "pos": "verb",
+          "parse": "3rd person singular present active indicative", "meaning_here": "is",
+          "role": "With 'divisa' forms the predicate 'is divided'.",
+          "definitions": ["to be", "to exist", "to be located"],
+          "links": [0, 3], "derivatives": ["essence", "essential"],
+          "note": "'est … divisa' could be a perfect passive ('has been divided'), but here it describes a state: 'is divided'."
+        },
+        {
+          "i": 2, "form": "omnis", "lemma": "omnis, omne", "pos": "adjective",
+          "parse": "nominative singular feminine", "meaning_here": "as a whole",
+          "role": "Modifies 'Gallia': 'Gaul as a whole'.",
+          "definitions": ["the whole, as a whole", "all, every"],
+          "links": [0], "derivatives": ["omnibus", "omnipotent", "omniscient"],
+          "note": "In the singular with a place name, omnis means 'the whole of', not 'every'."
+        },
+        {
+          "i": 3, "form": "divisa", "lemma": "dīvidō, dīvidere, dīvīsī, dīvīsum", "pos": "participle",
+          "parse": "perfect passive participle, nominative singular feminine", "meaning_here": "divided",
+          "role": "Predicate with 'est'; agrees with 'Gallia'.",
+          "definitions": ["to divide, separate", "to distribute, share out"],
+          "links": [0, 1], "derivatives": ["divide", "division", "divisible"], "note": ""
+        },
+        {
+          "i": 4, "form": "in", "lemma": "in (prep. + acc. or abl.)", "pos": "preposition",
+          "parse": "indeclinable; here with the accusative", "meaning_here": "into",
+          "role": "Governs 'partes tres': 'into three parts'.",
+          "definitions": ["into, onto (+ acc.)", "in, on (+ abl.)", "against, toward (+ acc.)"],
+          "links": [5], "derivatives": [],
+          "note": "With the accusative, in expresses motion or result ('into'); with the ablative, position ('in')."
+        },
+        {
+          "i": 5, "form": "partes", "lemma": "pars, partis, f.", "pos": "noun",
+          "parse": "accusative plural feminine", "meaning_here": "parts",
+          "role": "Object of 'in': 'into three parts'.",
+          "definitions": ["part, portion, share", "side, direction", "(pl.) party, faction; role in a play"],
+          "links": [4, 6, 7], "derivatives": ["part", "particle", "partition"], "note": ""
+        },
+        {
+          "i": 6, "form": "tres", "lemma": "trēs, tria", "pos": "numeral",
+          "parse": "accusative plural feminine", "meaning_here": "three",
+          "role": "Modifies 'partes'.",
+          "definitions": ["three"],
+          "links": [5], "derivatives": ["trio", "triple", "trinity"],
+          "note": "Placed after its noun for emphasis: 'into parts — three of them'."
+        },
+        {
+          "i": 7, "form": "quarum", "lemma": "quī, quae, quod", "pos": "pronoun",
+          "parse": "genitive plural feminine", "meaning_here": "of which",
+          "role": "Relative pronoun referring back to 'partes'; partitive genitive with 'unam', 'aliam' and 'tertiam'.",
+          "definitions": ["who, which, that (relative)", "which? what? (interrogative)"],
+          "links": [5, 8, 11, 13], "derivatives": ["quorum"],
+          "note": "Partitive genitive: 'of which (parts) the Belgae inhabit one …'."
+        },
+        {
+          "i": 8, "form": "unam", "lemma": "ūnus, ūna, ūnum", "pos": "numeral",
+          "parse": "accusative singular feminine", "meaning_here": "one",
+          "role": "Object of 'incolunt'; stands for 'unam partem'.",
+          "definitions": ["one", "single, alone", "one and the same"],
+          "links": [7, 9], "derivatives": ["unit", "unite", "union"],
+          "note": "ūnus … alius … tertius: 'one … another … a third'."
+        },
+        {
+          "i": 9, "form": "incolunt", "lemma": "incolō, incolere, incoluī", "pos": "verb",
+          "parse": "3rd person plural present active indicative", "meaning_here": "inhabit",
+          "role": "Verb of the relative clause, with subject 'Belgae'; understood again with 'aliam Aquitani' and 'tertiam qui …'.",
+          "definitions": ["to inhabit, live in", "to dwell, reside"],
+          "links": [8, 10], "derivatives": [],
+          "note": "Said once but understood three times (gapping): '(the Aquitani inhabit) another …'."
+        },
+        {
+          "i": 10, "form": "Belgae", "lemma": "Belgae, Belgārum, m. pl.", "pos": "proper noun",
+          "parse": "nominative plural masculine", "meaning_here": "the Belgae",
+          "role": "Subject of 'incolunt'.",
+          "definitions": ["the Belgae, a group of peoples of northern Gaul"],
+          "links": [9], "derivatives": ["Belgium", "Belgian"],
+          "note": "Their name survives in modern Belgium."
+        },
+        {
+          "i": 11, "form": "aliam", "lemma": "alius, alia, aliud", "pos": "adjective",
+          "parse": "accusative singular feminine", "meaning_here": "another",
+          "role": "Object of an understood 'incolunt': '(the Aquitani inhabit) another'.",
+          "definitions": ["other, another", "different"],
+          "links": [7, 12], "derivatives": ["alias", "alien", "alibi"], "note": ""
+        },
+        {
+          "i": 12, "form": "Aquitani", "lemma": "Aquītānī, Aquītānōrum, m. pl.", "pos": "proper noun",
+          "parse": "nominative plural masculine", "meaning_here": "the Aquitani",
+          "role": "Subject of an understood 'incolunt'.",
+          "definitions": ["the Aquitani, a people of south-western Gaul"],
+          "links": [11], "derivatives": ["Aquitaine"],
+          "note": "Their name survives in the French region of Aquitaine."
+        },
+        {
+          "i": 13, "form": "tertiam", "lemma": "tertius, tertia, tertium", "pos": "adjective",
+          "parse": "accusative singular feminine", "meaning_here": "the third",
+          "role": "Object of an understood 'incolunt': '(those who … inhabit) the third'.",
+          "definitions": ["third"],
+          "links": [7, 14], "derivatives": ["tertiary"], "note": ""
+        },
+        {
+          "i": 14, "form": "qui", "lemma": "quī, quae, quod", "pos": "pronoun",
+          "parse": "nominative plural masculine", "meaning_here": "(those) who",
+          "role": "Subject of 'appellantur'; its antecedent ('eī', 'those') is left out.",
+          "definitions": ["who, which, that (relative)"],
+          "links": [13, 20], "derivatives": [],
+          "note": "The antecedent is omitted: '(those) who are called …'."
+        },
+        {
+          "i": 15, "form": "ipsorum", "lemma": "ipse, ipsa, ipsum", "pos": "pronoun",
+          "parse": "genitive plural masculine", "meaning_here": "their own",
+          "role": "Possessive genitive with 'lingua': 'in their own language'.",
+          "definitions": ["-self (himself, herself, itself, themselves)", "the very, the actual"],
+          "links": [16], "derivatives": ["ipso facto"],
+          "note": "Contrasts with 'nostra': their own tongue versus ours (Latin)."
+        },
+        {
+          "i": 16, "form": "lingua", "lemma": "lingua, linguae, f.", "pos": "noun",
+          "parse": "ablative singular feminine", "meaning_here": "in the language",
+          "role": "Ablative of means with 'appellantur': 'called in their own language'.",
+          "definitions": ["tongue", "language, speech"],
+          "links": [15, 18], "derivatives": ["language", "linguistics", "bilingual"],
+          "note": "Understood again with 'nostra': 'in our (language)'."
+        },
+        {
+          "i": 17, "form": "Celtae", "lemma": "Celtae, Celtārum, m. pl.", "pos": "proper noun",
+          "parse": "nominative plural masculine", "meaning_here": "Celts",
+          "role": "Predicate nominative with 'appellantur': 'are called Celts'.",
+          "definitions": ["the Celts"],
+          "links": [20], "derivatives": ["Celt", "Celtic"], "note": ""
+        },
+        {
+          "i": 18, "form": "nostra", "lemma": "noster, nostra, nostrum", "pos": "adjective",
+          "parse": "ablative singular feminine", "meaning_here": "in ours",
+          "role": "Modifies an understood 'lingua': 'in our (language)'.",
+          "definitions": ["our, ours"],
+          "links": [16], "derivatives": ["nostrum"],
+          "note": "'lingua' is not repeated (ellipsis). 'Our' language is Latin."
+        },
+        {
+          "i": 19, "form": "Galli", "lemma": "Gallus, Gallī, m.", "pos": "proper noun",
+          "parse": "nominative plural masculine", "meaning_here": "Gauls",
+          "role": "Predicate nominative with 'appellantur': 'are called Gauls'.",
+          "definitions": ["a Gaul, an inhabitant of Gaul"],
+          "links": [20], "derivatives": ["Gallic"], "note": ""
+        },
+        {
+          "i": 20, "form": "appellantur", "lemma": "appellō, appellāre, appellāvī, appellātum", "pos": "verb",
+          "parse": "3rd person plural present passive indicative", "meaning_here": "are called",
+          "role": "Verb of the clause 'qui … appellantur', with subject 'qui' and predicate nominatives 'Celtae' and 'Galli'.",
+          "definitions": ["to call, name", "to address, speak to", "to appeal to"],
+          "links": [14, 17, 19], "derivatives": ["appellation", "appeal", "appellate"], "note": ""
+        }
+      ]
+    },
+    "1.1": {
+      "literal": "These all in language, customs, laws among themselves differ.",
+      "structure": "A single main clause: subject 'Hi omnes', verb 'differunt'. Three ablatives of respect, listed without 'and', say how they differ, and 'inter se' makes it reciprocal.",
+      "words": [
+        {
+          "i": 0, "form": "Hi", "lemma": "hic, haec, hoc", "pos": "pronoun",
+          "parse": "nominative plural masculine", "meaning_here": "these (peoples)",
+          "role": "Subject of 'differunt'.",
+          "definitions": ["this, these", "the latter", "he, she, it (as a pronoun)"],
+          "links": [1, 7], "derivatives": [], "note": ""
+        },
+        {
+          "i": 1, "form": "omnes", "lemma": "omnis, omne", "pos": "adjective",
+          "parse": "nominative plural masculine", "meaning_here": "all",
+          "role": "Modifies 'Hi': 'all these'.",
+          "definitions": ["all, every", "the whole"],
+          "links": [0], "derivatives": ["omnibus", "omnipresent"], "note": ""
+        },
+        {
+          "i": 2, "form": "lingua", "lemma": "lingua, linguae, f.", "pos": "noun",
+          "parse": "ablative singular feminine", "meaning_here": "in language",
+          "role": "Ablative of respect with 'differunt': 'differ in language'.",
+          "definitions": ["tongue", "language, speech"],
+          "links": [7], "derivatives": ["language", "linguistics"],
+          "note": "Ablative of respect: it tells in what respect they differ."
+        },
+        {
+          "i": 3, "form": "institutis", "lemma": "īnstitūtum, īnstitūtī, n.", "pos": "noun",
+          "parse": "ablative plural neuter", "meaning_here": "in customs",
+          "role": "Ablative of respect with 'differunt'.",
+          "definitions": ["custom, practice, institution", "plan, purpose"],
+          "links": [7], "derivatives": ["institute", "institution"],
+          "note": "The list 'lingua, institutis, legibus' has no 'and' (asyndeton), which makes it brisk."
+        },
+        {
+          "i": 4, "form": "legibus", "lemma": "lēx, lēgis, f.", "pos": "noun",
+          "parse": "ablative plural feminine", "meaning_here": "in laws",
+          "role": "Ablative of respect with 'differunt'.",
+          "definitions": ["law, statute", "rule, principle", "terms, conditions (of an agreement)"],
+          "links": [7], "derivatives": ["legal", "legislate", "legitimate"], "note": ""
+        },
+        {
+          "i": 5, "form": "inter", "lemma": "inter (prep. + acc.)", "pos": "preposition",
+          "parse": "indeclinable; with the accusative", "meaning_here": "among, from (one another)",
+          "role": "With 'se' forms 'inter se', 'from one another'.",
+          "definitions": ["between, among", "during"],
+          "links": [6], "derivatives": ["interval", "international"],
+          "note": "'inter se' is reciprocal: 'among themselves, from one another'."
+        },
+        {
+          "i": 6, "form": "se", "lemma": "suī, sibi, sē, sē", "pos": "pronoun",
+          "parse": "accusative plural masculine (reflexive)", "meaning_here": "themselves",
+          "role": "Object of 'inter'; refers back to the subject 'Hi omnes'.",
+          "definitions": ["himself, herself, itself, themselves"],
+          "links": [5, 0], "derivatives": ["suicide"], "note": ""
+        },
+        {
+          "i": 7, "form": "differunt", "lemma": "differō, differre, distulī, dīlātum", "pos": "verb",
+          "parse": "3rd person plural present active indicative", "meaning_here": "differ",
+          "role": "Main verb, with subject 'Hi omnes'.",
+          "definitions": ["to differ, be different", "to carry apart, scatter", "to postpone, delay"],
+          "links": [0, 2, 3, 4], "derivatives": ["differ", "different", "dilatory"],
+          "note": "An irregular compound of ferō, 'carry' — compare its principal parts."
+        }
+      ]
+    }
+  }
+}
