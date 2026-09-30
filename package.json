@@ -5,7 +5,7 @@
   "description": "Photograph a page of Latin, get a clean tappable reader with per-word definitions, parsing and context.",
   "type": "module",
   "engines": {
-    "node": ">=20.12"
+    "node": ">=20.12 <25"
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
