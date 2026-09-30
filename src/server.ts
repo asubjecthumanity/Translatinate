@@ -2,7 +2,16 @@ import "./env.js";
 import { timingSafeEqual } from "node:crypto";
 import { networkInterfaces } from "node:os";
 import { fileURLToPath } from "node:url";
-import Anthropic from "@anthropic-ai/sdk";
+import {
+  APIConnectionError,
+  APIError,
+  AnthropicError,
+  AuthenticationError,
+  BadRequestError,
+  InternalServerError,
+  PermissionDeniedError,
+  RateLimitError,
+} from "@anthropic-ai/sdk";
 import express, { type NextFunction, type Request, type Response } from "express";
 import { z } from "zod";
 import { ClaudeOutputError, analyze, config, transcribe } from "./claude.js";
@@ -118,25 +127,25 @@ function openStream(res: Response) {
 
 function describeError(err: unknown): string {
   if (err instanceof ClaudeOutputError || err instanceof OpenRouterError) return err.message;
-  if (err instanceof Anthropic.AuthenticationError || err instanceof Anthropic.PermissionDeniedError) {
+  if (err instanceof AuthenticationError || err instanceof PermissionDeniedError) {
     return "The server's Anthropic API key was rejected. Check ANTHROPIC_API_KEY.";
   }
-  if (err instanceof Anthropic.RateLimitError) {
+  if (err instanceof RateLimitError) {
     return "Too many requests to Claude right now. Wait a moment and try again.";
   }
-  if (err instanceof Anthropic.BadRequestError) {
+  if (err instanceof BadRequestError) {
     return `Claude couldn't accept this request: ${err.message}`;
   }
-  if (err instanceof Anthropic.InternalServerError) {
+  if (err instanceof InternalServerError) {
     return "Claude is overloaded or had an error. Try again in a moment.";
   }
-  if (err instanceof Anthropic.APIConnectionError) {
+  if (err instanceof APIConnectionError) {
     return "The server couldn't reach the Claude API.";
   }
-  if (err instanceof Anthropic.APIError) {
+  if (err instanceof APIError) {
     return `Claude API error${err.status ? ` (${err.status})` : ""}: ${err.message}`;
   }
-  if (err instanceof Anthropic.AnthropicError && /authentication/i.test(err.message)) {
+  if (err instanceof AnthropicError && /authentication/i.test(err.message)) {
     return "The server has no Anthropic API key. Set ANTHROPIC_API_KEY and restart it.";
   }
   return "Something went wrong on the server.";

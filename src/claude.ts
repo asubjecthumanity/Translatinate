@@ -1,5 +1,9 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { Anthropic } from "@anthropic-ai/sdk";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
+import type {
+  BetaContentBlock,
+  MessageCreateParamsStreaming,
+} from "@anthropic-ai/sdk/resources/beta/messages/messages";
 import {
   BLOCK_KINDS,
   SentenceAnalysisSchema,
@@ -59,7 +63,7 @@ interface StreamHooks {
  * HTTP timeouts) and returns the JSON text of the final answer.
  */
 async function streamJson(
-  params: Omit<Anthropic.Beta.Messages.MessageCreateParamsStreaming, "model" | "stream">,
+  params: Omit<MessageCreateParamsStreaming, "model" | "stream">,
   hooks: StreamHooks,
 ): Promise<string> {
   const stream = getClient().beta.messages.stream(
@@ -87,10 +91,10 @@ async function streamJson(
 
   // After a mid-stream fallback, only the content after the last `fallback`
   // block belongs to the answer that finished.
-  const start = message.content.findLastIndex((block) => block.type === "fallback") + 1;
+  const start = message.content.findLastIndex((block: BetaContentBlock) => block.type === "fallback") + 1;
   const text = message.content
     .slice(start)
-    .map((block) => (block.type === "text" ? block.text : ""))
+    .map((block: BetaContentBlock) => (block.type === "text" ? block.text : ""))
     .join("");
   if (!text.trim()) {
     throw new ClaudeOutputError("Claude returned an empty response.");
